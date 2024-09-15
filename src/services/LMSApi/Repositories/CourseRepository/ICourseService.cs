@@ -12,6 +12,7 @@ namespace LMSApi.Repositories.CourseRepository
         Task<ResponseWithData<GetCourseDto>> GetCourse(int id);
         Task<ResponseWithData<bool>> UpdateCourse(int id, UpdateCourseDto courseDto);
         Task<ResponseWithData<bool>> DeleteCourse(int id);
+        Task<ResponseWithData<IEnumerable<GetCourseDto>>> GetCoursesByPlaylistId(int playlistId);
     }
 }
 

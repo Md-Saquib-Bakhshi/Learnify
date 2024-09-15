@@ -80,5 +80,17 @@ namespace LMSApi.Controllers
 
             return BadRequest(new { Status = result.Status, Message = result.Message });
         }
+
+        [HttpGet("playlist/{playlistId}")]
+        public async Task<IActionResult> GetCoursesByPlaylistId(int playlistId)
+        {
+            var result = await _courseService.GetCoursesByPlaylistId(playlistId);
+
+            if (result.Status == "Success")
+                return Ok(result);
+
+            return NotFound(new { Status = result.Status, Message = result.Message });
+        }
+
     }
 }

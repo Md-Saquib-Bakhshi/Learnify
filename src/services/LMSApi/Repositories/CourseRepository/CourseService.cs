@@ -205,5 +205,37 @@ namespace LMSApi.Repositories.CourseRepository
 
             return response;
         }
+
+        // In CourseService.cs
+        public async Task<ResponseWithData<IEnumerable<GetCourseDto>>> GetCoursesByPlaylistId(int playlistId)
+        {
+            var response = new ResponseWithData<IEnumerable<GetCourseDto>>();
+            try
+            {
+                var courses = await _lmsDbContext.Courses
+                    .Where(c => c.PlaylistId == playlistId)
+                    .Select(c => new GetCourseDto
+                    {
+                        Id = c.Id,
+                        Title = c.Title,
+                        Link = c.Link,
+                        PlaylistId = c.PlaylistId
+                    })
+                    .ToListAsync();
+
+                response.Data = courses;
+                response.Status = "Success";
+                response.Message = "Courses retrieved successfully.";
+            }
+            catch (Exception ex)
+            {
+                response.Data = null;
+                response.Status = "Error";
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
     }
 }
