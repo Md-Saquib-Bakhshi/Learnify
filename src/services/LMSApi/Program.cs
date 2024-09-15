@@ -1,5 +1,6 @@
 using LMSApi.Data;
 using LMSApi.Repositories.CourseRepository;
+using LMSApi.Repositories.MeetingRepository;
 using LMSApi.Repositories.PlaylistRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IPlaylistService, PlaylistService>();
+builder.Services.AddScoped<IMeetingService, MeetingService>();
 
 builder.Services.AddDbContext<LMSDbContext>(options =>
 {

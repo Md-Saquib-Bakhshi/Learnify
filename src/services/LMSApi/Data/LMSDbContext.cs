@@ -11,6 +11,7 @@ namespace LMSApi.Data
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
+        public DbSet<MeetingRequest> MeetingRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
