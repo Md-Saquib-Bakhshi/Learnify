@@ -1,5 +1,5 @@
-﻿using LMSApi.Models.CourseDTO;
-using LMSApi.Models.UpdateCourseDTO;
+﻿using LMSApi.Models.CourseDTO.CreateCourseDTO;
+using LMSApi.Models.CourseDTO.UpdateCourseDTO;
 using LMSApi.Repositories.CourseRepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,21 +17,20 @@ namespace LMSApi.Controllers
             _courseService = courseService;
         }
 
-        // POST: api/Courses
         [HttpPost]
         public async Task<IActionResult> AddCourse([FromBody] CreateCourseDto courseDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Invalid course data.");
+                return BadRequest(new { Status = "Error", Message = "Invalid course data." });
 
             var result = await _courseService.AddCourse(courseDto);
 
             if (result.Status == "Success")
                 return Ok(result);
-            return BadRequest(result);
+
+            return BadRequest(new { Status = result.Status, Message = result.Message });
         }
 
-        // GET: api/Courses
         [HttpGet]
         public async Task<IActionResult> GetAllCourses()
         {
@@ -39,10 +38,10 @@ namespace LMSApi.Controllers
 
             if (result.Status == "Success")
                 return Ok(result);
-            return NotFound(result);
+
+            return NotFound(new { Status = result.Status, Message = result.Message });
         }
 
-        // GET: api/Courses/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCourse(int id)
         {
@@ -50,24 +49,27 @@ namespace LMSApi.Controllers
 
             if (result.Status == "Success")
                 return Ok(result);
-            return NotFound(result);
+
+            return NotFound(new { Status = result.Status, Message = result.Message });
         }
 
-        // PUT: api/Courses/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(int id, [FromBody] UpdateCourseDto courseDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest("Invalid course data.");
+                return BadRequest(new { Status = "Error", Message = "Invalid course data." });
+
+            if (id != courseDto.Id)
+                return BadRequest(new { Status = "Error", Message = "Course ID mismatch." });
 
             var result = await _courseService.UpdateCourse(id, courseDto);
 
             if (result.Status == "Success")
                 return Ok(result);
-            return BadRequest(result);
+
+            return BadRequest(new { Status = result.Status, Message = result.Message });
         }
 
-        // DELETE: api/Courses/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourse(int id)
         {
@@ -75,7 +77,8 @@ namespace LMSApi.Controllers
 
             if (result.Status == "Success")
                 return Ok(result);
-            return BadRequest(result);
+
+            return BadRequest(new { Status = result.Status, Message = result.Message });
         }
     }
 }

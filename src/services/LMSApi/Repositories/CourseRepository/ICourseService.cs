@@ -1,7 +1,7 @@
 ﻿using LMSApi.Models;
-using LMSApi.Models.CourseDTO;
-using LMSApi.Models.GetCourseDTO;
-using LMSApi.Models.UpdateCourseDTO;
+using LMSApi.Models.CourseDTO.CreateCourseDTO;
+using LMSApi.Models.CourseDTO.GetCourseDTO;
+using LMSApi.Models.CourseDTO.UpdateCourseDTO;
 
 namespace LMSApi.Repositories.CourseRepository
 {
@@ -14,3 +14,4 @@ namespace LMSApi.Repositories.CourseRepository
         Task<ResponseWithData<bool>> DeleteCourse(int id);
     }
 }
+

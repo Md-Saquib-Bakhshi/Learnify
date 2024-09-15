@@ -10,5 +10,16 @@ namespace LMSApi.Data
             
         }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Playlist>()
+                .HasMany(p => p.Courses)
+                .WithOne(c => c.Playlist)
+                .HasForeignKey(c => c.PlaylistId);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

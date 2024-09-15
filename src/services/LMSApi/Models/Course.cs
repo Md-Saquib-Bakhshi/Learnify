@@ -10,6 +10,12 @@ namespace LMSApi.Models
         public string Link { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        // Foreign key for Playlist
+        public int PlaylistId { get; set; }
+
+        // Navigation property
+        public Playlist Playlist { get; set; }
+
         public Course()
         {
             CreatedAt = DateTime.Now;
